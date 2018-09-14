@@ -21,6 +21,7 @@ NBA Salary Cap Tracker uses a number of open source projects to work properly:
 ## Plugins
 
 *[Cheerio]
+
 *[Request-Promise]
 
 Created by Jack Van Boening
