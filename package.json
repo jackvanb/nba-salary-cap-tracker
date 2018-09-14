@@ -1,0 +1,23 @@
+{
+  "name": "nba-salary-cap-tracker",
+  "version": "0.0.0",
+  "description": "View the cap space of every NBA team.",
+  "main": "server.js",
+  "repository": "",
+  "author": "Jack Van Boening <jackvanboening@gmail.com>",
+  "keywords": [
+    "node",
+    "request-promise",
+    "cheerio",
+    "heroku"
+  ],
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "~3.2.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  },
+  "engines": {
+    "node": "6.11.2"
+  }
+}
