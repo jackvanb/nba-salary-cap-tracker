@@ -18,6 +18,11 @@ NBA Salary Cap Tracker uses a number of open source projects to work properly:
 * [Express]
 * [jQuery] 
 
+## Plugins
+
+*[Cheerio]
+*[Request-Promise]
+
 Created by Jack Van Boening
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
@@ -36,6 +41,8 @@ Created by Jack Van Boening
    [express]: <http://expressjs.com>
    [AngularJS]: <http://angularjs.org>
    [Gulp]: <http://gulpjs.com>
+   [Cheerio]: <https://cheerio.js.org/>
+   [Request-Promise]: <https://www.npmjs.com/package/request-promise-native>
 
    [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
    [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
