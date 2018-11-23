@@ -1,4 +1,4 @@
-# [NBA Salary Cap Tracker](https://nba-salary-cap-tracker-vanboening21.c9users.io/)
+# [NBA Salary Cap Tracker](https://nba-salary-cap-tracker.herokuapp.com/)
 
 NBA Salary Cap Tracker is a web app that allows users to quickly view the 
 salary cap space for all 30 NBA Teams. It also provides easy access to a more detailed
