@@ -1,7 +1,91 @@
-/*angular */
+const teamJson = '[ { "teamId": 1610612737, "abbreviation": "ATL", "teamName": "Atlanta Hawks", "simpleName": "Hawks", "location": "Atlanta" }, { "teamId": 1610612738, "abbreviation": "BOS", "teamName": "Boston Celtics", "simpleName": "Celtics", "location": "Boston" }, { "teamId": 1610612751, "abbreviation": "BKN", "teamName": "Brooklyn Nets", "simpleName": "Nets", "location": "Brooklyn" }, { "teamId": 1610612766, "abbreviation": "CHA", "teamName": "Charlotte Hornets", "simpleName": "Hornets", "location": "Charlotte" }, { "teamId": 1610612741, "abbreviation": "CHI", "teamName": "Chicago Bulls", "simpleName": "Bulls", "location": "Chicago" }, { "teamId": 1610612739, "abbreviation": "CLE", "teamName": "Cleveland Cavaliers", "simpleName": "Cavaliers", "location": "Cleveland" }, { "teamId": 1610612742, "abbreviation": "DAL", "teamName": "Dallas Mavericks", "simpleName": "Mavericks", "location": "Dallas" }, { "teamId": 1610612743, "abbreviation": "DEN", "teamName": "Denver Nuggets", "simpleName": "Nuggets", "location": "Denver" }, { "teamId": 1610612765, "abbreviation": "DET", "teamName": "Detroit Pistons", "simpleName": "Pistons", "location": "Detroit" }, { "teamId": 1610612744, "abbreviation": "GSW", "teamName": "Golden State Warriors", "simpleName": "Warriors", "location": "Golden State" }, { "teamId": 1610612745, "abbreviation": "HOU", "teamName": "Houston Rockets", "simpleName": "Rockets", "location": "Houston" }, { "teamId": 1610612754, "abbreviation": "IND", "teamName": "Indiana Pacers", "simpleName": "Pacers", "location": "Indiana" }, { "teamId": 1610612746, "abbreviation": "LAC", "teamName": "Los Angeles Clippers", "simpleName": "Clippers", "location": "Los Angeles" }, { "teamId": 1610612747, "abbreviation": "LAL", "teamName": "Los Angeles Lakers", "simpleName": "Lakers", "location": "Los Angeles" }, { "teamId": 1610612763, "abbreviation": "MEM", "teamName": "Memphis Grizzlies", "simpleName": "Grizzlies", "location": "Memphis" }, { "teamId": 1610612748, "abbreviation": "MIA", "teamName": "Miami Heat", "simpleName": "Heat", "location": "Miami" }, { "teamId": 1610612749, "abbreviation": "MIL", "teamName": "Milwaukee Bucks", "simpleName": "Bucks", "location": "Milwaukee" }, { "teamId": 1610612750, "abbreviation": "MIN", "teamName": "Minnesota Timberwolves", "simpleName": "Timberwolves", "location": "Minnesota" }, { "teamId": 1610612740, "abbreviation": "NOP", "teamName": "New Orleans Pelicans", "simpleName": "Pelicans", "location": "New Orleans" }, { "teamId": 1610612752, "abbreviation": "NYK", "teamName": "New York Knicks", "simpleName": "Knicks", "location": "New York" }, { "teamId": 1610612760, "abbreviation": "OKC", "teamName": "Oklahoma City Thunder", "simpleName": "Thunder", "location": "Oklahoma City" }, { "teamId": 1610612753, "abbreviation": "ORL", "teamName": "Orlando Magic", "simpleName": "Magic", "location": "Orlando" }, { "teamId": 1610612755, "abbreviation": "PHI", "teamName": "Philadelphia 76ers", "simpleName": "76ers", "location": "Philadelphia" }, { "teamId": 1610612756, "abbreviation": "PHX", "teamName": "Phoenix Suns", "simpleName": "Suns", "location": "Phoenix" }, { "teamId": 1610612757, "abbreviation": "POR", "teamName": "Portland Trail Blazers", "simpleName": "Trail Blazers", "location": "Portland" }, { "teamId": 1610612758, "abbreviation": "SAC", "teamName": "Sacramento Kings", "simpleName": "Kings", "location": "Sacramento" }, { "teamId": 1610612759, "abbreviation": "SAS", "teamName": "San Antonio Spurs", "simpleName": "Spurs", "location": "San Antonio" }, { "teamId": 1610612761, "abbreviation": "TOR", "teamName": "Toronto Raptors", "simpleName": "Raptors", "location": "Toronto" }, { "teamId": 1610612762, "abbreviation": "UTA", "teamName": "Utah Jazz", "simpleName": "Jazz", "location": "Utah" }, { "teamId": 1610612764, "abbreviation": "WAS", "teamName": "Washington Wizards", "simpleName": "Wizards", "location": "Washington" } ]';
+const baseURL = 'http://i.cdn.turner.com/nba/nba/.element/img/1.0/teamsites/logos/teamlogos_500x500/';
 
-angular.module('MyApp')
-  .controller('AppCtrl', function($scope) {
-    $scope.teams = ['Los Angeles Lakers', 'Clevleand Cavaliers', 'Miami Heat', 'Sacramento Kings', 'Los Angeles Clippers',
-    'New York Knicks', 'Golden State Warriors'];
-  });
+/*angular */
+angular.module('MyApp', ['ngMaterial', 'ngMessages'])
+  .controller('AppCtrl', ['$scope', '$mdDialog', function($scope, $mdDialog) {
+
+    // Define Scope Variables
+    $scope.capValues = {};
+    $scope.teams = [];
+    $scope.urls = [];
+
+
+    var team_names = [];
+    var team_urls = [];
+
+    $(document).ready(function() {
+      $.ajax({
+        url: "/salary-cap-info",
+        cache: false,
+        success: function(data) {
+          console.log(data);
+          $scope.capValues = JSON.parse(data);
+        },
+        fail: function(data) {
+          console.log(data);
+        }
+      });
+    });
+
+    var json = teamJson
+    var obj = JSON.parse(json);
+
+    obj.forEach(function(e) {
+      team_names.push(e.teamName);
+      team_urls.push(baseURL + e.abbreviation.toLowerCase() + ".png");
+    });
+
+    $scope.teams = team_names;
+    $scope.urls = team_urls;
+    $scope.capSpace = {};
+
+    $scope.showTeam = function(team, $index) {
+      var parentEl = angular.element(document.body);
+      $scope.team = team;
+      $scope.url = $scope.urls[$index];
+      $scope.value = $scope.capValues[team];
+
+      $scope.teamLink = team.replace(/\s+/g, '-').toLowerCase();
+
+      $mdDialog.show({
+        parent: parentEl,
+        template: '<md-dialog>' +
+          '  <md-dialog-content>' +
+          ' <md-dialog-body > ' +
+          '            <h2>{{ team }}</h2>' +
+          '          <img ng-src="{{url}}" ng-style="{ width: 300, height: 300 }" class="md-card-image"> ' +
+          '                <h2> Cap Space: </h2>' +
+          '                 <h1 ng-style="capSpace.style" >{{value}}</h1> ' +
+          ' </md-dialog-body> ' +
+          '  </md-dialog-content>' +
+          '  <md-dialog-actions>' +
+          '    <md-button ng-href="https://www.spotrac.com/nba/{{teamLink}}/cap/" class="md-raised" >' +
+          '    Cap Info ' +
+          '    </md-button>' +
+          '    <md-button ng-click="closeDialog()" class="md-basic"> ' +
+          '      Close  ' +
+          '    </md-button>' +
+          '  </md-dialog-actions>' +
+          '</md-dialog>',
+        scope: $scope,
+        preserveScope: true, // Fix Bug if not showing on second click
+        clickOutsideToClose: true,
+        controller: DialogController
+      });
+
+      function DialogController($scope, $mdDialog) {
+
+        if ($scope.value.includes('-'))
+          $scope.capSpace.style = { "color": "red" };
+        else
+          $scope.capSpace.style = { "color": "green" };
+
+        $scope.closeDialog = function() {
+          $mdDialog.hide();
+        };
+
+      }
+    };
+
+  }]);
