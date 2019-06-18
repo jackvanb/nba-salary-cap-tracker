@@ -12,26 +12,32 @@
 
 /* Elevate on Hover */
 .NBATeams .md-raised:hover {
-    box-shadow: 0 8px 8px 8px rgba(0,0,0,.2), 0 8px 8px 0 rgba(0,0,0,.14), 0 8px 8px 0 rgba(0,0,0,.12) !important;
-    transform: translate3d(0,0,0);
-    transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.2), 0 8px 8px 0 rgba(0, 0, 0, 0.14),
+    0 8px 8px 0 rgba(0, 0, 0, 0.12) !important;
+  transform: translate3d(0, 0, 0);
+  transition: background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /*Remove Blue Highlight */
 .md-raised:focus {
-    outline: none;
-    border: 0;
- }
- 
- md-dialog md-dialog-content {
-   margin-top: 8px;
-   margin-left: 8px;
-   margin-right: 8px;
-   
- }
- 
- .md-card-image {
-     display: block;
-     margin-left: auto;
-     margin-right: auto;
- }
+  outline: none;
+  border: 0;
+}
+
+md-dialog md-dialog-content {
+  margin-top: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.md-card-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mat-toolbar {
+  background: black;
+  color: red;
+}

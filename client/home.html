@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
-    <style>
-      .title-div {
-        padding-top: 12px;
-      }
-      h1 {
-        text-align: center;
-      }
-      h2 {
-        font-size: 28;
-        text-align: center;
-      }
-    </style>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+  <style>
+    .title-div {
+      padding-top: 12px;
+    }
+    h1 {
+      text-align: left;
+      margin-left: 16pt;
+    }
+    h2 {
+      font-size: 28;
+      text-align: center;
+    }
+  </style>
+  <div class="title-div"> 
+      <h1>NBA Salary Cap Tracker</h1>
+  </div>
 </head>
-<body>
-<div class="title-div"> 
-<h1>NBA Salary Cap Tracker</h1>
-</div>
-<div ng-app="MyApp" class="NBATeams" ng-controller="AppCtrl">
-  <div class='md-padding' layout="row" layout-wrap>
-        <md-card style="width: 18%; height:18%;"  ng-repeat="team in teams" ng-click="showTeam(team, $index)" class="md-raised">
-          <img ng-src="{{ urls[$index] }}" class="md-card-image">
-        </md-card>
+<body ng-app="MyApp">
+  <div class="NBATeams" ng-controller="AppCtrl">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" ng-init="currentNavItem='salaryCap'">
+        <md-nav-item md-nav-click="goto('salaryCap')" name="salaryCap">
+          Salary Cap
+        </md-nav-item>
+        <!-- <md-nav-item md-nav-click="goto('about')" name="about">
+            About
+        </md-nav-item> -->
+    </md-nav-bar>
+    <div class='md-padding' layout="row" layout-wrap>
+          <md-card style="width: 18%; height:18%;"  ng-repeat="team in teams" ng-click="showTeam(team, $index)" class="md-raised">
+            <img ng-src="{{ urls[$index] }}" class="md-card-image">
+          </md-card>
+        </div>
       </div>
     </div>
   </div>
-</div>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <!-- Angular Material requires Angular.js Libraries -->
